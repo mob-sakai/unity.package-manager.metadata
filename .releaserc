@@ -1,0 +1,20 @@
+{
+  "plugins": [
+    [
+      "@semantic-release/npm",
+      {
+        "npmPublish": false
+      }
+    ],
+    "@semantic-release/git",
+    "@semantic-release/github",
+    [
+      "@semantic-release/exec",
+      {
+        "verifyConditionsCmd": "./update.sh",
+        "analyzeCommitsCmd": "git diff -s --exit-code -- package.json || echo 'patch'",
+        "generateNotesCmd": "git diff -- package.json | grep -e '^[+-][^+-]' | tr -d ',\" '"
+      }
+    ]
+  ]
+}
