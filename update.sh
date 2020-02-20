@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IGNORED_REGISTRIES=("https://registry.npmjs.org" "https://npm.pkg.github.com");
+IGNORED_REGISTRIES=("https://registry.npmjs.org" "https://npm.pkg.github.com" "https://staging-packages.unity.com");
 OFFICIAL_REGISTRY=https://packages.unity.com
 
 # check the package registry

@@ -2,10 +2,10 @@ name: update
 
 on:
   schedule:
-    - cron: "*/30 * * * *"
-  push:
-    branches:
-      - master
+    - cron: "*/15 * * * *"
+  # push:
+  #   branches:
+  #     - master
 
 jobs:
   update:

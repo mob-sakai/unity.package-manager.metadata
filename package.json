@@ -7,13 +7,14 @@
     "@semantic-release/exec": "^5.0.0",
     "@semantic-release/git": "^9.0.0"
   },
+  "homepage": "https://github.com/mob-sakai/unity.package-manager.metadata",
   "publishConfig": {
     "registry": "https://package.openupm.com"
   },
   "scripts": {
     "init": "jq 'del(.searchablePackages)' package.json > .tmp && mv .tmp package.json",
     "update": "semantic-release",
-    "update:local": "semantic-release --no-ci",
+    "update:manually": "./update.sh && npm --no-git-tag-version version patch && npm publish",
     "update:debug": "semantic-release --no-ci --dry-run --debug"
   },
   "searchablePackages": [
