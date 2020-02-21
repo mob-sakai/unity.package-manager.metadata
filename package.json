@@ -14,7 +14,7 @@
   "files": [],
   "scripts": {
     "update": "semantic-release",
-    "update:manually": "./update_packages.sh && npm --no-git-tag-version version patch && npm publish",
+    "update:local": "./update_packages.sh && npm --no-git-tag-version version patch && npm publish",
     "update:debug": "semantic-release --no-ci --dry-run --debug"
   },
   "searchablePackages": []

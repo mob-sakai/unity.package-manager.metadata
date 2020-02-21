@@ -74,6 +74,10 @@ If you use [verdaccio](https://verdaccio.org/) for package registry, this reposi
 
 ## System Requirement
 
+This repository works on GitHub Actions.
+
+If you update locally, request the following:
+
 - bash
 - node 10.18 or later
 - jq
@@ -183,10 +187,10 @@ notify:
   content: '{ "event_type":"package_published", "client_payload": {"name": "{{ name }}" } }'
 ```
 
-- **NOTE: (2020/02/21) Verdaccio v4.4.2 does not support environment variables.**  
+- **NOTE: (2020/02/21) Verdaccio v4.4.2 does not support environment variables in `config.yml`.**  
   **Please correct `{OWNER}` and `{GITHUB_TOKEN}` to the correct values.**
 
-- **NOTE: (2020/02/21) DO NOT use OpenUPM as a uplink registry**  
+- **NOTE: (2020/02/21) DO NOT use OpenUPM as a uplink registry.**  
   **For details, see https://github.com/openupm/openupm/issues/68.**
 
 <br><br><br>
@@ -217,7 +221,7 @@ To update searchable packages manually, execute the following commands:
 export GH_TOKEM=*********
 export NPM_TOKEM=********* # optional
 npm ci
-npm run update:manually
+npm run update -- --no-ci
 ```
 
 **NOTE: Execute these commands each time a new package is added to your package registry.**
@@ -230,6 +234,10 @@ npm run update:manually
   https://forum.unity.com/threads/how-to-use-both-packages-and-staging-packages.534115/
 - Huge registries such as https://registry.npmjs.org and https://npm.pkg.github.com are not supported.
 - To update searchable packages on Circle CI, Travis CI, Jenkins, etc., please refer to `.github/workflows/update.yml`.
+- (2020/02/21) Verdaccio v4.4.2 does not support environment variables in `config.yml`.  
+  Please correct `{OWNER}` and `{GITHUB_TOKEN}` to the correct values.
+- (2020/02/21) DO NOT use OpenUPM as a uplink registry.  
+  For details, see https://github.com/openupm/openupm/issues/68.
 
 <br><br><br>
 
