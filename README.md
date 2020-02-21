@@ -92,14 +92,7 @@ If you use [verdaccio](https://verdaccio.org/) for package registry, this reposi
 },
 ```
 
-4. Remove `searchablePackages` field in `package.json`.  
-   Or, execute the following command:
-
-```
-npm run init
-```
-
-5. You can schedule **the workflow to check the official package registry** to run at specific UTC times using [POSIX cron syntax](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07).  
+4. You can schedule **the workflow to check the official package registry** to run at specific UTC times using [POSIX cron syntax](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07).  
    Edit `.github/workflows/update.yml` as following to change the schedule:
 
 ```yml
@@ -109,10 +102,10 @@ on:
     - cron: "* 0 * * *"
 ```
 
-6. The workflow will push updates to the repository.  
+5. The workflow will push updates to the repository.  
    See [Creating secrets in GitHub](#creating-secrets-in-github) and add `GH_TOKEN` secret on GitHub.
 
-7. (Optional) To publish this package to your package registry, follow these steps:
+6. (Optional) To publish this package to your package registry, follow these steps:
    1. add `NPM_TOKEN` secret on GitHub. For details, see [Creating secrets in GitHub](#creating-secrets-in-github).
    2. Edit `.releaserc` as follows:
 
@@ -130,7 +123,7 @@ on:
 }
 ```
 
-8. (Optional) [Update searchable packages manually](#update-searchable-packages-manually)
+7. (Optional) [Update searchable packages manually](#update-searchable-packages-manually)
 
 <br><br><br>
 
