@@ -15,7 +15,7 @@
   "scripts": {
     "init": "jq 'del(.searchablePackages)' package.json > .tmp && mv .tmp package.json",
     "update": "semantic-release",
-    "update:manually": "./update.sh && npm --no-git-tag-version version patch && npm publish",
+    "update:manually": "./update_packages.sh && npm --no-git-tag-version version patch && npm publish",
     "update:debug": "semantic-release --no-ci --dry-run --debug"
   },
   "searchablePackages": [

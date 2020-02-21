@@ -11,7 +11,7 @@
     [
       "@semantic-release/exec",
       {
-        "verifyConditionsCmd": "./update.sh",
+        "verifyConditionsCmd": "./update_packages.sh",
         "analyzeCommitsCmd": "git diff -s --exit-code -- package.json || echo 'patch'",
         "generateNotesCmd": "git diff -- package.json | grep -e '^[+-][^+-]' | tr -d ',\" '"
       }

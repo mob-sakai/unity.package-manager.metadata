@@ -1,7 +1,14 @@
 #!/bin/bash
 
-IGNORED_REGISTRIES=("https://registry.npmjs.org" "https://npm.pkg.github.com" "https://staging-packages.unity.com");
+IGNORED_REGISTRIES=( \
+    "https://registry.npmjs.org" \
+    "https://npm.pkg.github.com" \
+    "https://staging-packages.unity.com" \
+);
 OFFICIAL_REGISTRY=https://packages.unity.com
+OPEN_UPM_REGISTRY=https://package.openupm.com
+
+
 
 # check the package registry
 REGISTRY=`jq -r '.publishConfig.registry' package.json | sed 's/\/$//'`
@@ -32,7 +39,7 @@ if [ "$REGISTRY" == "$OFFICIAL_REGISTRY" ]; then
 # [openupm]
 #   workaround for https://github.com/openupm/openupm/issues/68.
 #   however, should use the '/-/all' endpoint after fixed.
-elif [ "$REGISTRY" == "https://package.openupm.com" ]; then
+elif [ "$REGISTRY" == "$OPEN_UPM_REGISTRY" ]; then
     echo "   -> openupm"
     echo "   -> workaround for https://github.com/openupm/openupm/issues/68."
 
@@ -46,7 +53,6 @@ elif [ "$REGISTRY" == "https://package.openupm.com" ]; then
     echo 'data/packages' > .git/info/sparse-checkout
     git pull origin master --depth=1
 
-
     echo "   -> check package availability."
     ls data/packages \
     | jq -rnR 'inputs | select(length>0) | rtrimstr(".yml")' \
@@ -58,8 +64,9 @@ elif [ "$REGISTRY" == "https://package.openupm.com" ]; then
 
 # [other]
 else
-    curl -sL "$REGISTRY/-/all" | jq 'del(."_updated") | del(."com.unity.package-manager.metadata") | keys' > packages
+    curl -sL "$REGISTRY/-/all" | jq 'keys' > packages
 fi
+cat packages
 
 
 
@@ -73,9 +80,3 @@ cat fixed_packages
 # merge searchable packages.
 echo ">> merge searchable packages"
 jq --slurpfile o official --slurpfile p fixed_packages '.searchablePackages = ($o[0] + $p[0] | sort | unique)' package.json > package.json.tmp
-
-echo ">> diff with package.json:"
-diff package.json.tmp package.json
-if [ "$?" != "0" ]; then
-    mv package.json.tmp package.json
-fi
