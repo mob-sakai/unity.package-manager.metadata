@@ -1,11 +1,10 @@
 name: update
 
 on:
+  repository_dispatch:
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "* 0 * * *"
   # push:
-  #   branches:
-  #     - master
 
 jobs:
   update:
@@ -26,3 +25,4 @@ jobs:
         env:
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}
           GH_TOKEN: ${{secrets.GH_TOKEN}}
+          PACKAGE_NAME: ${{github.event.client_payload.name}}

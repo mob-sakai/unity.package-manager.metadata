@@ -99,14 +99,14 @@ If you use [verdaccio](https://verdaccio.org/) for package registry, this reposi
 npm run init
 ```
 
-5. You can schedule the workflow to run at specific UTC times using [POSIX cron syntax](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07).  
+5. You can schedule **the workflow to check the official package registry** to run at specific UTC times using [POSIX cron syntax](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07).  
    Edit `.github/workflows/update.yml` as following to change the schedule:
 
 ```yml
 on:
   schedule:
-    # run At every 30th minute.
-    - cron: "*/30 * * * *"
+    # check the official package registry daily.
+    - cron: "* 0 * * *"
 ```
 
 6. The workflow will push updates to the repository.  
@@ -167,8 +167,24 @@ packages:
 
     # if package is not available locally, proxy requests to 'unity' registry
     proxy: unity
+
+# notify to GitHub Actions on published a new package
+notify:
+  method: POST
+  headers: [
+    {'Content-Type': 'application/json'},
+    {'Accept': 'application/vnd.github.v3+json'},
+    {'User-Agent': 'verdaccio'},
+    {'Authorization': "token {GITHUB_TOKEN}"}
+  ]
+  endpoint: 'https://api.github.com/repos/{OWNER}/unity.package-manager.metadata/dispatches'
+  content: '{ "event_type":"package_published", "client_payload": {"name": "{{ name }}" } }'
 ```
 
+* **NOTE: (2020/02/21) Verdaccio v4.4.2 does not support environment variables.**  
+**Please correct `{OWNER}` and `{GITHUB_TOKEN}` to the correct values.**
+
+* **NOTE: (2020/02/21) DO NOT use OpenUPM as a uplink registry**  
 <br><br><br>
 
 ## Creating secrets in GitHub
