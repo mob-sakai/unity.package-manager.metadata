@@ -142,7 +142,7 @@ uplinks:
   # the official package registry
   unity:
     url: https://packages.unity.com
-  
+
   # the third party package registry (e.g. openupm)
   third_party:
     url: https://packages.third.party.com
@@ -172,21 +172,22 @@ packages:
 # notify to GitHub Actions on published a new package
 notify:
   method: POST
-  headers: [
-    {'Content-Type': 'application/json'},
-    {'Accept': 'application/vnd.github.v3+json'},
-    {'User-Agent': 'verdaccio'},
-    {'Authorization': "token {GITHUB_TOKEN}"}
-  ]
-  endpoint: 'https://api.github.com/repos/{OWNER}/unity.package-manager.metadata/dispatches'
+  headers:
+    [
+      { "Content-Type": "application/json" },
+      { "Accept": "application/vnd.github.v3+json" },
+      { "User-Agent": "verdaccio" },
+      { "Authorization": "token {GITHUB_TOKEN}" },
+    ]
+  endpoint: "https://api.github.com/repos/{OWNER}/unity.package-manager.metadata/dispatches"
   content: '{ "event_type":"package_published", "client_payload": {"name": "{{ name }}" } }'
 ```
 
-* **NOTE: (2020/02/21) Verdaccio v4.4.2 does not support environment variables.**  
-**Please correct `{OWNER}` and `{GITHUB_TOKEN}` to the correct values.**
+- **NOTE: (2020/02/21) Verdaccio v4.4.2 does not support environment variables.**  
+  **Please correct `{OWNER}` and `{GITHUB_TOKEN}` to the correct values.**
 
-* **NOTE: (2020/02/21) DO NOT use OpenUPM as a uplink registry**  
-**For details, see https://github.com/openupm/openupm/issues/68.**
+- **NOTE: (2020/02/21) DO NOT use OpenUPM as a uplink registry**  
+  **For details, see https://github.com/openupm/openupm/issues/68.**
 
 <br><br><br>
 
