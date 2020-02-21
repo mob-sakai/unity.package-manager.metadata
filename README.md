@@ -140,13 +140,19 @@ on:
 Packages that do not exist in your package registry can be found from an proxy registry.  
 For example, the `com.unity.*` packages will be found from Unity official package registry.
 
+In addition, multiple proxies can be configured using uplinks.
+
 Edit the verdaccio configuration file `config.yml` as follows:
 
 ```yml
 uplinks:
-  # unity official package registry
+  # the official package registry
   unity:
     url: https://packages.unity.com
+  
+  # the third party package registry (e.g. openupm)
+  third_party:
+    url: https://packages.third.party.com
 
 packages:
   # the metadata package should be found in your package registry
@@ -165,8 +171,10 @@ packages:
     publish: $authenticated
     unpublish: $authenticated
 
-    # if package is not available locally, proxy requests to 'unity' registry
-    proxy: unity
+    # if package is not available locally, proxy requests to other registries
+    proxy:
+      - third_party
+      - unity
 
 # notify to GitHub Actions on published a new package
 notify:
@@ -185,6 +193,8 @@ notify:
 **Please correct `{OWNER}` and `{GITHUB_TOKEN}` to the correct values.**
 
 * **NOTE: (2020/02/21) DO NOT use OpenUPM as a uplink registry**  
+**For details, see https://github.com/openupm/openupm/issues/68.**
+
 <br><br><br>
 
 ## Creating secrets in GitHub
