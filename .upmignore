@@ -3,3 +3,4 @@ com.havok.physics
 com.ptc.vuforia.engine
 com.unity.
 nuget.mono-cecil
+unity.package-manager.metadata
