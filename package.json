@@ -11,6 +11,7 @@
   "publishConfig": {
     "registry": "https://package.openupm.com"
   },
+  "files": [],
   "scripts": {
     "init": "jq 'del(.searchablePackages)' package.json > .tmp && mv .tmp package.json",
     "update": "semantic-release",
