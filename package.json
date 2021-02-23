@@ -1,6 +1,6 @@
 {
   "name": "com.unity.package-manager.metadata",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Contains metadata used by the com.unity.package-manager package to fulfill client requests",
   "devDependencies": {
     "semantic-release": "^17.2.3",
@@ -30,6 +30,7 @@
     "com.unity.adaptiveperformance.samsung.android",
     "com.unity.addressables",
     "com.unity.ads",
+    "com.unity.ads.ios-support",
     "com.unity.ai.planner",
     "com.unity.analytics",
     "com.unity.animation.rigging",
